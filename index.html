@@ -11,6 +11,46 @@
             box-sizing: border-box;
         }
 
+	/* Estilos para el reproductor de audio */
+	audio {
+    	width: 100%;
+    	margin-top: 10px;
+    	height: 40px;
+	}
+
+	audio::-webkit-media-controls-panel {
+    	background-color: rgba(218, 165, 32, 0.2);
+	}
+
+	audio::-webkit-media-controls-play-button {
+    	background-color: #daa520;
+    	border-radius: 50%;
+	}
+
+	audio::-webkit-media-controls-current-time-display,
+	audio::-webkit-media-controls-time-remaining-display {
+    	color: #e6d5b8;
+	}
+
+	audio::-webkit-media-controls-timeline {
+    	background-color: rgba(218, 165, 32, 0.3);
+    	border-radius: 25px;
+	}
+
+	audio::-webkit-media-controls-volume-slider {
+    	background-color: rgba(218, 165, 32, 0.3);
+    	border-radius: 25px;
+	}
+
+	/* Para Firefox */
+	audio::-moz-range-track {
+    	background-color: rgba(218, 165, 32, 0.3);
+	}
+
+	audio::-moz-range-thumb {
+    	background-color: #daa520;
+	}
+
         body {
             font-family: 'Georgia', serif;
             background: #0a0a0a;
@@ -310,18 +350,18 @@
     <section class="section" id="musica">
         <h2>🎵 MÚSICA</h2>
         <div class="grid">
-            <div class="card">
-                <div class="card-icon">🔥</div>
-                <h3>Álbum Principal</h3>
-                <p>Una colección de visiones sonoras que trascienden el tiempo.</p>
-                <button class="btn" onclick="showMusic('album')">Escuchar</button>
-            </div>
-            <div class="card">
-                <div class="card-icon">⚡</div>
-                <h3>Singles</h3>
-                <p>Temas reveladores sobre Momentos Trascendentales.</p>
-                <button class="btn" onclick="showMusic('singles')">Escuchar</button>
-            </div>
+	<div class="card">
+    		<div class="card-icon">🔥</div>
+    		<h3>Álbum Principal</h3>
+    		<p>Una colección de visiones sonoras que trascienden el tiempo.</p>
+    		<button class="btn" onclick="showMusic('album')">Escuchar</button>
+	</div>
+		<div class="card">
+    		<div class="card-icon">⚡</div>
+    		<h3>Singles</h3>
+    		<p>Temas reveladores sobre Momentos Trascendentales.</p>
+    		<button class="btn" onclick="showMusic('singles')">Escuchar</button>
+	</div>
             <div class="card">
                 <div class="card-icon">🌙</div>
                 <h3>Próximos Lanzamientos</h3>
@@ -424,18 +464,34 @@
             document.getElementById('gameModal').style.display = 'block';
         }
 
-    // Música VIDA
+// Música VIDA
 function showMusic(tipo) {
     console.log('Mostrando música:', tipo);
     const albums = {
-        album: ['Embarazo 4:23', 'Nacimiento 3:45', 'Infancia 5:12', 'Adolescencia 4:01', 'Juventud 6:30', 'Adultez 6:30', 'Vejez 6:30', 'Muerte 6:30' ],
-        singles: ['La Profecía 3:58', 'Entre Mundos 4:15', 'Destino Dorado 3:42']
+        album: [
+            {name: 'Embarazo', duration: '4:23', file: 'assets/music/01_Embarazo.mp3'},
+            {name: 'Nacimiento', duration: '3:45', file: 'assets/music/02_Nacimiento.mp3'},
+            {name: 'Infancia', duration: '5:12', file: 'assets/music/03_Infancia.mp3'},
+            {name: 'Adolescencia', duration: '4:01', file: 'assets/music/04_Adolescencia.mp3'},
+            {name: 'Juventud', duration: '6:30', file: 'assets/music/05_Juventud.mp3'},
+            {name: 'Adultez', duration: '6:30', file: 'assets/music/06_Adultez.mp3'},
+            {name: 'Vejez', duration: '6:30', file: 'assets/music/07_Vejez.mp3'},
+            {name: 'Muerte', duration: '6:30', file: 'assets/music/08_Muerte.mp3'}
+        ],
+        singles: [
+            {name: 'La Profecía', duration: '3:58', file: 'assets/music/singles/01_La_Profecia.mp3'},
+            {name: 'Entre Mundos', duration: '4:15', file: 'assets/music/singles/02_Entre_Mundos.mp3'},
+            {name: 'Destino Dorado', duration: '3:42', file: 'assets/music/singles/03_Destino_Dorado.mp3'}
+        ]
     };
+
     const tracks = albums[tipo];
+    
     const html = `
-        <h2 style="color: #daa520; text-align: center; font-size: 36px; margin-bottom: 30px;">🎵 ${tipo === 'album' ? 'Álbum VIDA (Hecho con IA)' : 'Singles'}</h2>
+        <h2 style="color: #daa520; text-align: center; font-size: 36px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(218, 165, 32, 0.5);">
+            🎵 ${tipo === 'album' ? 'Álbum VIDA (Hecho con IA)' : 'Singles'}
+        </h2>
         
-        <!-- IMAGEN DEL ÁLBUM (solo se muestra si es el álbum principal) -->
         ${tipo === 'album' ? `
             <div style="text-align: center; margin-bottom: 30px;">
                 <img src="assets/images/Vida.png" alt="Álbum VIDA" 
@@ -443,21 +499,33 @@ function showMusic(tipo) {
             </div>
         ` : ''}
         
-        <div style="background: rgba(218, 165, 32, 0.05); border: 1px solid rgba(218, 165, 32, 0.3); border-radius: 10px; padding: 30px; max-width: 600px; margin: 0 auto;">
+        <div style="background: rgba(218, 165, 32, 0.05); border: 1px solid rgba(218, 165, 32, 0.3); border-radius: 10px; padding: 30px; max-width: 700px; margin: 0 auto;">
             ${tracks.map((t, i) => `
-                <div style="padding: 15px; margin-bottom: 10px; background: rgba(0, 0, 0, 0.3); border-radius: 8px;">
-                    <span style="color: #daa520; font-weight: bold; margin-right: 15px;">${i + 1}</span>
-                    <span style="color: #e6d5b8;">${t}</span>
+                <div style="padding: 15px; margin-bottom: 15px; background: rgba(0, 0, 0, 0.3); border-radius: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div>
+                            <span style="color: #daa520; font-weight: bold; margin-right: 15px;">${i + 1}</span>
+                            <span style="color: #e6d5b8; font-size: 16px;">${t.name}</span>
+                        </div>
+                        <span style="color: #daa520; font-size: 14px;">${t.duration}</span>
+                    </div>
+                    <div style="background: linear-gradient(135deg, rgba(218, 165, 32, 0.3), rgba(218, 165, 32, 0.15)); padding: 12px; border-radius: 8px; border: 1px solid rgba(218, 165, 32, 0.5); box-shadow: 0 2px 8px rgba(218, 165, 32, 0.2);">
+                        <audio controls style="width: 100%;" preload="metadata">
+                            <source src="${t.file}" type="audio/mpeg">
+                            Tu navegador no soporta el elemento de audio.
+                        </audio>
+                    </div>
                 </div>
             `).join('')}
         </div>
         <p style="text-align: center; color: #e6d5b8; margin-top: 30px; font-style: italic;">
-            💡 Añade aquí tus enlaces de Spotify, YouTube Music, etc.
+            💡 También disponible en Spotify, YouTube Music, Apple Music
         </p>
     `;
     document.getElementById('modalContent').innerHTML = html;
     document.getElementById('gameModal').style.display = 'block';
 }
+
         // Videos
         function showVideos() {
             console.log('Mostrando videos');
